@@ -1,4 +1,5 @@
 'use client'
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { DropdownMenu, 
    DropdownMenuTrigger,
@@ -12,10 +13,15 @@ import { MoonIcon, SunIcon, SunMoon } from "lucide-react";
 
 const ModeToggle = () => {
 
-   const { resolvedTheme, setTheme } = useTheme();
+   const { theme, setTheme } = useTheme();
+   const [ mounted, setMounted] = useState(false);
 
-   if(!resolvedTheme) {
-      return null
+   useEffect(() => {
+      setMounted(true);
+   }, []);
+
+   if(!mounted) {
+      return null;
    }
 
    return ( 
@@ -24,9 +30,9 @@ const ModeToggle = () => {
             <Button variant='ghost' 
                className="focus-visible:ring-0 focus-visible:ring-offset-0">
                {
-                  resolvedTheme === 'system' ? (
+                  theme === 'system' ? (
                      <SunMoon />
-                  ) : resolvedTheme === 'dark' ? (
+                  ) : theme === 'dark' ? (
                      <MoonIcon />
                   ) : (
                      <SunIcon />
@@ -39,19 +45,19 @@ const ModeToggle = () => {
             <DropdownMenuSeparator />
         
             <DropdownMenuCheckboxItem
-               checked={resolvedTheme === 'system'}
+               checked={theme === 'system'}
                onClick={() => setTheme('system')}
             >
                System
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-               checked={resolvedTheme === 'dark'}
+               checked={theme === 'dark'}
                onClick={() => setTheme('dark')}
             >
                Dark
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-               checked={resolvedTheme === 'light'}
+               checked={theme === 'light'}
                onClick={() => setTheme('light')}
             >
                Light
