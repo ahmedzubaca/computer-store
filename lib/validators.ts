@@ -48,3 +48,9 @@ export const readProductSchema = z.object({
   rating: z.number(),
   createdAt: zDateString,
 });
+
+//Schema for signing users in
+export const signInFormSchema = z.object({
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(6, "Pasword must have at least 6 characters."),
+});
