@@ -47,3 +47,18 @@ export function round2(value: number | string) {
     throw new Error("Invalid input type. Expected number or string.");
   }
 }
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat("bs-BA", {
+  style: "currency",
+  currency: "BAM",
+  minimumFractionDigits: 2,
+});
+export function formatCurrency(amount: number | string | null | undefined) {
+  if (typeof amount === "number") {
+    return CURRENCY_FORMATTER.format(amount);
+  } else if (typeof amount === "string") {
+    return CURRENCY_FORMATTER.format(Number(amount));
+  } else {
+    return "NaN";
+  }
+}

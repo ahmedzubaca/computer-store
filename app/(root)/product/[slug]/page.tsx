@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/product/product-price";
-import { mapReadProduct } from "@/lib/utils/mapper/read-product";
+import { mapReadProduct } from "@/lib/mapper/read-product";
 import ProductImages from "@/components/shared/product/product-image";
 import AddToCart from "@/components/shared/product/add-to-cart";
 import { getMyCart } from "@/lib/actions/cart.actions";
