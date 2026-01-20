@@ -20,9 +20,9 @@ export const SIGN_UP_DEFAULT_VALUES = {
 };
 
 export const shippingAddressDefaultValues = {
-  fullName: "Neko Nekić",
-  streetAddress: "Glavna 123",
-  city: "Nekigrad",
-  postalCode: "12345",
-  country: "BiH",
+  fullName: "",
+  streetAddress: "",
+  city: "",
+  postalCode: "",
+  country: "",
 };
