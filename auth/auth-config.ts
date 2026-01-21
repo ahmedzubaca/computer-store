@@ -1,11 +1,27 @@
 import type { NextAuthConfig } from "next-auth";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const authConfig = {
   providers: [], // Required by NextAuthConfig type
   callbacks: {
-    authorized({ request, auth }: any) {
+    authorized({ request, auth }) {
+      // Array of regex patterns of paths we want to protect
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+      ];
+
+      // Get pathname from the req URL object
+      const { pathname } = request.nextUrl;
+
+      //   // Check if user is not authenticated and accessing a protected path
+      if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
+
       //Check for session cart cookie
       if (!request.cookies.get("sessionCartId")) {
         // Generate new session cart id cookie
@@ -29,24 +45,6 @@ export const authConfig = {
         return true;
       }
     },
-
-    // authorized({ request, auth }: any) {
-    //   // Array of regex patterns of paths we want to protect
-    //   const protectedPaths = [
-    //     /\/shipping-address/,
-    //     /\/payment-method/,
-    //     /\/place-order/,
-    //     /\/profile/,
-    //     /\/user\/(.*)/,
-    //     /\/order\/(.*)/,
-    //     /\/admin/,
-    //   ];
-
-    //   // Get pathname from the req URL object
-    //   const { pathname } = request.nextUrl;
-
-    //   // Check if user is not authenticated and accessing a protected path
-    //   if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
 
     //   // Check for session cart cookie
     //   if (!request.cookies.get("sessionCartId")) {

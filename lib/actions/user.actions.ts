@@ -22,7 +22,11 @@ export async function signInWitCredentials(
       password: formData.get("password"),
     });
 
-    await signIn("credentials", user);
+    const callbackUrl = formData.get("callbacUrl")?.toString() || "/";
+    await signIn("credentials", {
+      ...user,
+      callbackUrl,
+    });
     return { success: true, message: "Signed in successfully." };
   } catch (error) {
     if (isRedirectError(error)) {
